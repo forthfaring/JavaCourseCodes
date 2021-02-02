@@ -14,6 +14,6 @@ public class ThreadPoolTest {
     public static void main(String[] args) {
         TimeUnit unit;
         BlockingQueue workQueue;
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 20, , unit, workQueue);
+//        ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 20, , unit, workQueue);
     }
 }

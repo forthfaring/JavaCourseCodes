@@ -7,20 +7,20 @@ import java.util.concurrent.Future;
 public class ExceptionDemo {
     
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
     
-        try {
-            Future<Double> future = executorService.submit(() -> {
-                throw new RuntimeException("executorService.submit()");
-            });
-    
-            double b = future.get();
-            System.out.println(b);
-            
-        } catch (Exception ex) {
-            System.out.println("catch submit");
-            ex.printStackTrace();
-        }
+//        try {
+//            Future<Double> future = executorService.submit(() -> {
+//                throw new RuntimeException("executorService.submit()");
+//            });
+//
+//            double b = future.get();
+//            System.out.println(b);
+//
+//        } catch (Exception ex) {
+//            System.out.println("catch submit");
+//            ex.printStackTrace();
+//        }
         
         try {
             executorService.execute(() -> {

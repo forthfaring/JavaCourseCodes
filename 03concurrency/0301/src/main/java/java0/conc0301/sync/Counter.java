@@ -38,6 +38,8 @@ public class Counter {
         });
         t1.start();
         t2.start();
+//        t1.join();
+//        t2.join();
         Thread.sleep(1000);
 //        while (Thread.activeCount()>2){//当前线程的线程组中的数量>2
 //            Thread.yield();
