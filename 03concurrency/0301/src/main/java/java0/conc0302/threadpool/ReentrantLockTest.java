@@ -1,5 +1,7 @@
 package java0.conc0302.threadpool;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -13,22 +15,39 @@ public class ReentrantLockTest {
     static int count = 0;
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            new Thread(ReentrantLockTest::incr).start();
+        Thread interT = null;
+        for (int i = 0; i < 2; i++) {
+            Thread t = new Thread(ReentrantLockTest::incr);
+            t.start();
+            if (i == 1) {
+                interT = t;
+            }
         }
-
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void incr() {
-        lock.lock();
+        boolean locked = false;
         try {
-            for (int i = 0; i < 10000; i++) {
-                count++;
-                System.out.println(count);
-            }
-        } finally {
-            lock.unlock();
+            locked = lock.tryLock(10, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            System.out.println("error");
+            e.printStackTrace();
         }
-
+        if (locked) {
+            Condition c = lock.newCondition();
+            try {
+                for (int i = 0; i < 100000; i++) {
+                    count++;
+                    System.out.println(count);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
     }
 }
